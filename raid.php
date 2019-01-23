@@ -15,7 +15,7 @@ try{
 // Query Database and Build Raid Billboard
 try 
 {
-    $sql = "SELECT time_format(from_unixtime(raid_battle_timestamp), '%h:%i:%s %p'), time_format(from_unixtime(raid_end_timestamp),'%h:%i:%s %p'), raid_level, pokedex.name, gym.name from gym inner join pokedex on gym.raid_pokemon_id = pokedex.pokemon_id where raid_pokemon_id is not null && gym.name is not null order by raid_end_timestamp";   
+    $sql = "SELECT time_format(from_unixtime(raid_battle_timestamp), '%h:%i:%s %p'), time_format(from_unixtime(raid_end_timestamp),'%h:%i:%s %p'), raid_level, pokedex.name, gym.name from gym inner join pokedex on gym.raid_pokemon_id = pokedex.pokemon_id where raid_pokemon_id is not null && gym.name is not null && raid_end_timestamp>unix_timestamp(now()) order by raid_end_timestamp";   
         $result = $pdo->query($sql);
         if($result->rowCount() > 0){
             echo "<table border='1';>";
